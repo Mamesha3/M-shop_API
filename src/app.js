@@ -6,6 +6,7 @@ const paymentRoutes = require('./routes/payment');
 const orderRoutes = require('./routes/order');
 const adminRoutes = require('./routes/admin');
 const ratingRoutes = require('./routes/rating');
+const healthRoutes = require('./routes/health');
 
 const app = express();
 
@@ -15,8 +16,12 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors({
     origin: ['http://localhost:5173', 
-    'https://m-shop-food-delivery.netlify.app']
+    'https://m-shop-food-delivery.netlify.app'],
+    credentials: true
 }));
+
+// Health check endpoint (no /api prefix)
+app.use('/health', healthRoutes);
 
 // Routes
 app.use('/api/users', userRoutes);
