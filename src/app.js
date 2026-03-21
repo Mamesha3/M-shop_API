@@ -7,6 +7,7 @@ const orderRoutes = require('./routes/order');
 const adminRoutes = require('./routes/admin');
 const ratingRoutes = require('./routes/rating');
 const healthRoutes = require('./routes/health');
+const rootRoutes = require('./routes/root');
 
 const app = express();
 
@@ -20,10 +21,13 @@ app.use(cors({
     credentials: true
 }));
 
-// Health check endpoint (no /api prefix)
+// Root route
+app.use('/', rootRoutes);
+
+// Health check endpoint
 app.use('/health', healthRoutes);
 
-// Routes
+// API Routes
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/payments', paymentRoutes);
